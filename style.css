@@ -1,0 +1,22 @@
+.table {
+    width: 85%;
+    margin: 50px auto;
+   max-width: 920px;
+}
+form {
+   width: 60%;
+   margin: 100px auto 0;
+   max-width: 700px;
+}
+input {
+   width: 100%;
+}
+input[type="radio"] {
+   width: 13px;
+}
+fieldset p {
+   margin-left: 50px;
+}
+.remove-book {
+   display: table-cell; 
+}
