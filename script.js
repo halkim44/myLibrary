@@ -1,7 +1,13 @@
 //global variables
 let myLibrary = [];
-let oneBook = new Book('the Death of Grass dfafaefaf aafwf  dff ', 'John Christopher', 194, true);
-myLibrary.push(oneBook);
+
+if (storageAvailable('localStorage')) {
+  if (localStorage.getItem('myLibrary')) {
+    myLibrary = JSON.parse(localStorage.getItem('myLibrary'));
+  }
+} else {
+  alert("localStorage service is not available");
+}
 
 //function executions
 render();
@@ -11,7 +17,7 @@ addEvents();
 function Book(title, author, pages, read) {
   this.title = title;
   this.author = author;
-  this.pages = pages;
+  this.pages = parseInt(pages);
   this.read = read;
 }
 
@@ -19,6 +25,10 @@ Book.prototype.info = function() {
   return `${this.title} by ${this.author},
    ${this.pages} pages,
   ${this.read? "already read it": "not read yet"}`
+}
+
+Book.prototype.toggleRead = function() {
+  this.read = !this.read;
 }
 
 function addBookToLibrary() {
@@ -34,6 +44,7 @@ function addBookToLibrary() {
 function updateNewBook() {
   console.log('work');
   myLibrary.push(addBookToLibrary());
+  localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
   document.forms[0].reset();
   render();
   checkFormCompletion();
@@ -44,7 +55,7 @@ function render() {
   let oldTbody = document.getElementById('table-body');
   newTbody.id = 'table-body';
 
-  myLibrary.forEach(function (book){
+  myLibrary.forEach(function (book, index){
     let row = document.createElement('tr');
 
     let removeBtn = document.createElement('button');
@@ -53,10 +64,7 @@ function render() {
     removeBtn.textContent = 'remove';
 
     removeBtn.addEventListener('click', function() {
-      let listOfBooks = this.parentNode.parentNode.parentNode.children;
-      let book =  this.parentNode.parentNode;
-      let index = Array.prototype.indexOf.call(listOfBooks, book);
-      myLibrary.splice(index, 1);
+      myLibrary.splice(index,1);
       render();
     })
 
@@ -65,12 +73,15 @@ function render() {
 
     let bookProps = Object.entries(book);
 
-    bookProps.forEach(el => {
+    bookProps.forEach(function (el){
       let value = document.createElement('td');
       value.textContent = el[1];
-
-      if(el[1] === "yes" || el[1] === "no") {
-        
+      if(typeof el[1] === "boolean") {
+        value.addEventListener('click', function() {
+          myLibrary[index].toggleRead();
+          render();
+        })
+        value.textContent = el[1]? "yes" : "not yet";
       }
       row.appendChild(value);
       row.appendChild(td);
@@ -94,4 +105,28 @@ function checkFormCompletion() {
 function addEvents() {
   document.getElementById('submit-button').addEventListener('click', updateNewBook);
   document.getElementsByTagName('form')[0].addEventListener("change", checkFormCompletion);
+}
+
+function storageAvailable(type) {
+    try {
+        var storage = window[type],
+            x = '__storage_test__';
+        storage.setItem(x, x);
+        storage.removeItem(x);
+        return true;
+    }
+    catch(e) {
+        return e instanceof DOMException && (
+            // everything except Firefox
+            e.code === 22 ||
+            // Firefox
+            e.code === 1014 ||
+            // test name field too, because code might not be present
+            // everything except Firefox
+            e.name === 'QuotaExceededError' ||
+            // Firefox
+            e.name === 'NS_ERROR_DOM_QUOTA_REACHED') &&
+            // acknowledge QuotaExceededError only if there's something already stored
+            storage.length !== 0;
+    }
 }
