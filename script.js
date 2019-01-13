@@ -13,7 +13,7 @@ if (storageAvailable('localStorage')) {
 render();
 addEvents();
 
-//function definitions here
+//class definitions here
 class Book {
   constructor(title, author, pages, read) {
     this.title = title;
@@ -31,7 +31,7 @@ class Book {
   }
 }
 
-
+//function definitions here
 function addBookToLibrary() {
   let title = document.forms[0][0].value;
   let author = document.forms[0][1].value;
