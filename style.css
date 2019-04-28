@@ -1,22 +1,162 @@
-.table {
-    width: 85%;
-    margin: 50px auto;
-   max-width: 920px;
+html {
+   background:rgb(180, 10, 70);
+   font-size: 16px;
+   font-family: 'Times New Roman', Times, serif;
 }
-form {
-   width: 60%;
-   margin: 100px auto 0;
-   max-width: 700px;
+.header > * {
+   color: #fff;
+   text-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+   text-align: center;
 }
-input {
+h1 {
+   margin-bottom: 20px;
+   font-size: 4em;
+}
+table {
    width: 100%;
+   max-width: 800px;
+   border-collapse: collapse;
+   border: 1px solid #38678f;
+   margin: 50px auto;
+   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+   background: white;
+ }
+ th {
+   background: rgb(180, 10, 70);
+   height: 54px;
+   width: 25%;
+   font-weight: lighter;
+   text-shadow: 0 1px 0 rgb(146, 6, 55);
+   color: white;
+   border: 1px solid rgb(146, 6, 55);
+   box-shadow: inset 0px 1px 2px rgb(146, 6, 55);
+   transition: all 0.2s;
+ }
+ tr {
+   border-bottom: 1px solid #cccccc;
+   height: 60px;
+ }
+ tr:last-child {
+   border-bottom: 0px;
+ }
+ td {
+   border-right: 1px solid #cccccc;
+   padding: 10px;
+   transition: all 0.2s;
+ }
+ td:last-child {
+   border-right: 0px;
+ }
+colgroup > col:first-child {
+   text-align: left;
 }
-input[type="radio"] {
+tbody {
+   background: #fff;
+   height: 500px;
+}
+.book-adder .show-form-btn {
+   background: tomato;
+   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+   border: 2px solid;
+   padding: 15px 30px;
+   border-radius: 50px;
+   margin: 0 auto;
+   display: block;
+   cursor: pointer;
+}
+
+#book-info >* {
+   box-sizing: border-box;
+}
+#book-info input {
+   width: 100%;
+   background: #E6EEEF;
+   border: none;
+   padding: 12px;
+   margin: 6px 0;
+   border-radius: 9px;
+   outline-color: #FF0023;
+}
+#book-info input[type="radio"] {
    width: 13px;
 }
-fieldset p {
+#book-info fieldset {
+   border: none;
+   background: #E6EEEF;
+   width: 100%;
+   border-radius: 9px;
+}
+#book-info fieldset > legend {
+   padding: 4px 12px;
+   background: #F3F7F8;
+   border-radius: 9px;
+}
+#book-info fieldset p {
    margin-left: 50px;
+}
+#book-info button[type="submit"] {
+   position: relative;
+   display: block;
+   padding: 19px 39px 18px 39px;
+   color: #FFF;
+   margin: 0 auto;
+   background: #FF0023;
+   font-size: 18px;
+   text-align: center;
+   width: 100%;
+   border: 1px solid #9D0023;
+   border-width: 1px 1px  3px;
+   margin: 12px 0;
+}
+#book-info button[type="submit"]:hover {
+   background: #ad0126;
+}
+#book-info button:disabled {
+   opacity: .2;
 }
 .remove-book {
    display: table-cell; 
+}
+.modal {
+   position: fixed;
+   left: 0;
+   top: 0;
+   width: 100%;
+   height: 100%;
+   background-color: rgba(0, 0, 0, 0.5);
+   opacity: 0;
+   visibility: hidden;
+   transform: scale(1.1);
+   transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
+}
+.modal-content {
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   background-color: #F3F7F8;
+   padding: 1rem 1.5rem;
+   width: 24rem;
+   border-radius: 0.5rem;
+}
+.modal-content > .close-button + *{
+   margin-top: 25px;
+}
+.close-button {
+   float: right;
+   width: 1.5rem;
+   line-height: 1.5rem;
+   text-align: center;
+   cursor: pointer;
+   border-radius: 0.25rem;
+   background-color: lightgray;
+}
+.close-button:hover {
+   background-color: darkgray;
+}
+.show-modal {
+   opacity: 1;
+   visibility: visible;
+   transform: scale(1.0);
+   transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
 }
